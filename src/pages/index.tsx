@@ -1,17 +1,29 @@
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/main/main.module.css'
 import { useQuery } from "react-query";
 import { fetchNasa } from "../api/index";
-
-const inter = Inter({subsets: ['latin']})
+import { LeftSide } from "../component/MainPage/LeftSide/index";
+import { MidSide } from "../component/MainPage/MidSide/index";
 
 export default function Home() {
 
-  const {data, isLoading, isError} = useQuery('data', fetchNasa)
-  console.log(data)
+  const currentDate = new Date().toJSON().slice(0, 10);
+  const {data, isLoading, isError} = useQuery(['data',currentDate], ()=>fetchNasa(currentDate))
+
+  if (isLoading) {
+    return (
+      <div>
+        Загрузка...
+      </div>
+    )
+  }
+
+  const asteroidData = data.near_earth_objects[currentDate]
   return (
     <div className={styles.main}>
-      hello world
+      <LeftSide/>
+      <MidSide
+        data={asteroidData}
+      />
     </div>
   )
 }

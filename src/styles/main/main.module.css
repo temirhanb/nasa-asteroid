@@ -1,0 +1,43 @@
+.main {
+  display: grid;
+  grid-template-columns: 30vw 40vw 30vw;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  min-height: 100vh;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.titleName {
+  color: #F86600;
+  font-size: 32px;
+  line-height: 35px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.titleDescription {
+  color: #fff;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.planetSvgBlock {
+  position: absolute;
+  left: 0;
+  top: 20%;
+  z-index: -1;
+  height: 50%;
+  object-fit: cover;
+}
+
+.planetSvg {
+  height: 70vh;
+}
