@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { fetchNasa } from "../api/index";
 import { LeftSide } from "../component/MainPage/LeftSide/index";
 import { MidSide } from "../component/MainPage/MidSide/index";
+import { Title } from "../component/MainPage/Title/index";
 
 export default function Home() {
 
@@ -19,11 +20,14 @@ export default function Home() {
 
   const asteroidData = data.near_earth_objects[currentDate]
   return (
-    <div className={styles.main}>
-      <LeftSide/>
-      <MidSide
-        data={asteroidData}
-      />
+    <div className={styles.page}>
+      <Title/>
+      <div className={styles.main}>
+        <LeftSide/>
+        <MidSide
+          data={asteroidData}
+        />
+      </div>
     </div>
   )
 }
