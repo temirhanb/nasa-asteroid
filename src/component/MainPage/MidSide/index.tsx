@@ -1,10 +1,13 @@
 import { useState } from "react";
+import styles from '@/styles/main/mid.module.css'
+import { Asteroid } from "../Asteroid/index";
 
-import styles from '@/styles/main/main.module.css'
+const options = {year: 'numeric', month: 'short', day: 'numeric'};
 
-export const MidSide = ({
-                          data
-                        }) => {
+export const MidSide = (
+  {
+    data
+  }) => {
   const [toggleDistanceLunar, setToggleDistanceLunar] = useState('Lunar')
 
   const handlerDistance = (e) => {
@@ -25,7 +28,7 @@ export const MidSide = ({
           {toggleDistanceLunar === 'Lunar' ? (
             <u
               style={{
-                fontWeight:400
+                fontWeight: 400
               }}
             >в километрах</u>
           ) : 'в километрах'}
@@ -38,7 +41,7 @@ export const MidSide = ({
         >
           {toggleDistanceLunar !== 'Lunar' ? (
             <u style={{
-              fontWeight:400
+              fontWeight: 400
             }}>в лунных орбитах</u>
           ) : 'в лунных орбитах'}
         </div>
@@ -46,42 +49,33 @@ export const MidSide = ({
 
       <div>
         {data.map(item => {
+
+          const [toggleCart, setToggleCart] = useState(false)
           const distanceKilometers = Math.round(item.close_approach_data[0].miss_distance.kilometers).toLocaleString("ru-RU")
           const distanceLunar = Math.round(item.close_approach_data[0].miss_distance.lunar).toLocaleString("ru-RU")
+          const hazard = item.is_potentially_hazardous_asteroid
           const diameter = Math.round(item.estimated_diameter.meters.estimated_diameter_max)
-          const data = item.close_approach_data[0].close_approach_date
-          const hazard = String(item.is_potentially_hazardous_asteroid)
+          const dataFull = new Date(item.close_approach_data[0].close_approach_date_full)
+            .toLocaleDateString('ru-RU', options)
+            .slice(0, -3);
+
+          const handlerChange = () => {
+            setToggleCart(!toggleCart)
+          }
 
           return (
-            <div className={styles.asteroid} key={item.id}>
-              <div className={styles.asteroidDate}>{data}</div>
-              <div className={styles.asteroidDescription}>
-                <div>
-                  <div>
-                    {toggleDistanceLunar !== 'Lunar'
-                    ? distanceKilometers
-                    : distanceLunar} {toggleDistanceLunar === 'Lunar'
-                    ? 'лун'
-                    : 'км'}
-                  </div>
-                </div>
-                <div className={styles.asteroidImage}>
-                  {diameter < 100?(
-                    <img src="/small-asteroid.svg" alt="asteroid"/>
-                  ):(
-                    <img src="/big-asteroid.svg" alt="asteroid"/>
-                  )}
-                </div>
-                <div>
-                  <div className={styles.asteroidName}> {item.name.replace(/[{()}]/g, '')}</div>
-                  <div>&#8960; {diameter} M</div>
-                </div>
-                <div>hazard: {hazard}</div>
-
-                <button>zakazat`</button>
-              </div>
-
-            </div>
+            <Asteroid
+              key={item.id}
+              name={item.name}
+              handlerChange={handlerChange}
+              toggleCart={toggleCart}
+              dataFull={dataFull}
+              diameter={diameter}
+              hazard={hazard}
+              distanceKilometers={distanceKilometers}
+              distanceLunar={distanceLunar}
+              toggleDistanceLunar={toggleDistanceLunar}
+            />
           )
         })}
       </div>

@@ -1,0 +1,24 @@
+.midContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.midContainerTitle {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.midDistance {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.midDistanceContainer {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 25px;
+  align-items: center;
+}
