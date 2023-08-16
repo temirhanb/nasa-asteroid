@@ -1,20 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from '@/styles/main/mid.module.css'
 import { Asteroid } from "../Asteroid/index";
+import { stateAsteroid } from "../../../utility/index";
 
 const options = {year: 'numeric', month: 'short', day: 'numeric'};
 
 export const MidSide = (
   {
-    data
+    data,
+    localState,setLocalState
   }) => {
   const [toggleDistanceLunar, setToggleDistanceLunar] = useState('Lunar')
 
   const handlerDistance = (e) => {
     if (e.target.innerText === 'в лунных орбитах') return setToggleDistanceLunar('Lunar')
     return setToggleDistanceLunar('Kilometers')
-
   }
+
   return (
     <div className={styles.midContainer}>
       <div className={styles.midContainerTitle}>
@@ -50,7 +52,6 @@ export const MidSide = (
       <div>
         {data.map(item => {
 
-          const [toggleCart, setToggleCart] = useState(false)
           const distanceKilometers = Math.round(item.close_approach_data[0].miss_distance.kilometers).toLocaleString("ru-RU")
           const distanceLunar = Math.round(item.close_approach_data[0].miss_distance.lunar).toLocaleString("ru-RU")
           const hazard = item.is_potentially_hazardous_asteroid
@@ -59,16 +60,15 @@ export const MidSide = (
             .toLocaleDateString('ru-RU', options)
             .slice(0, -3);
 
-          const handlerChange = () => {
-            setToggleCart(!toggleCart)
-          }
+
 
           return (
             <Asteroid
+              localState={localState}
+              setLocalState={setLocalState}
               key={item.id}
+              id={item.id}
               name={item.name}
-              handlerChange={handlerChange}
-              toggleCart={toggleCart}
               dataFull={dataFull}
               diameter={diameter}
               hazard={hazard}
