@@ -1,1 +1,1 @@
-export const stateAsteroid:Array<any> = [];
+export const stateAsteroid:Array<any> = [{}];

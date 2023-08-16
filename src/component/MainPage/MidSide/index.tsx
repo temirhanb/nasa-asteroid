@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from '@/styles/main/mid.module.css'
 import { Asteroid } from "../Asteroid/index";
-import { stateAsteroid } from "../../../utility/index";
 
 const options = {year: 'numeric', month: 'short', day: 'numeric'};
 
 export const MidSide = (
   {
     data,
-    localState,setLocalState
-  }) => {
+    localState,
+    setLocalState
+  }:any) => {
   const [toggleDistanceLunar, setToggleDistanceLunar] = useState('Lunar')
 
-  const handlerDistance = (e) => {
+  const handlerDistance = (e:any) => {
     if (e.target.innerText === 'в лунных орбитах') return setToggleDistanceLunar('Lunar')
     return setToggleDistanceLunar('Kilometers')
   }
@@ -50,18 +50,22 @@ export const MidSide = (
       </div>
 
       <div>
-        {data.map(item => {
+        {data.map((item:any) => {
 
           const distanceKilometers = Math.round(item.close_approach_data[0].miss_distance.kilometers).toLocaleString("ru-RU")
           const distanceLunar = Math.round(item.close_approach_data[0].miss_distance.lunar).toLocaleString("ru-RU")
           const hazard = item.is_potentially_hazardous_asteroid
           const diameter = Math.round(item.estimated_diameter.meters.estimated_diameter_max)
           const dataFull = new Date(item.close_approach_data[0].close_approach_date_full)
-            .toLocaleDateString('ru-RU', options)
+            .toLocaleDateString('ru-RU',
+              //@ts-ignore
+              options)
             .slice(0, -3);
 
+          const onHadlerAsteroid = () => {
 
-
+          }
+          console.log(item)
           return (
             <Asteroid
               localState={localState}

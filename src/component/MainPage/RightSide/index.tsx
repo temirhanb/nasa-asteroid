@@ -4,13 +4,12 @@ import Link from "next/link";
 import { stateAsteroid } from "../../../utility/index";
 
 export const RightSide = ({
-                            localState,setLocalState
-
-                          }) => {
+                            localState, setLocalState
+                          }: any) => {
 
   const count = localState.length;
 
-  const handlerClick = ()=>{
+  const handlerClick = () => {
     stateAsteroid.push(...localState)
   }
   return (

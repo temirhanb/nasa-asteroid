@@ -5,8 +5,8 @@ interface IProps {
   id: string;
   toggleDistanceLunar: string;
   name: string;
-  distanceKilometers: number;
-  distanceLunar: number;
+  distanceKilometers: string;
+  distanceLunar: string;
   diameter: number;
   hazard: boolean;
   localState: any;
@@ -25,7 +25,8 @@ export const Asteroid: React.FC<IProps> = ({
                                              hazard
                                            }) => {
 
-  const findAsteroid = localState.find(item => id === item.id)
+
+  const findAsteroid = localState.find((item:any) => id === item.id)
   const handlerChange = () => {
     const item = {
       dataFull,
@@ -38,7 +39,7 @@ export const Asteroid: React.FC<IProps> = ({
       hazard
     }
     if (findAsteroid !== undefined) {
-      const newLocalState = localState.filter((item) => id !== item.id)
+      const newLocalState = localState.filter((item:any) => id !== item.id)
       return setLocalState(newLocalState)
     }
     return setLocalState([...localState, item])
