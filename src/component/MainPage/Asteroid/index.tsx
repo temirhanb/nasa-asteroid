@@ -1,6 +1,7 @@
 import styles from '@/styles/main/asteroid.module.css'
+import Link from "next/link";
 
-interface IProps {
+interface ILocalSate {
   dataFull: string;
   id: string;
   toggleDistanceLunar: string;
@@ -9,24 +10,30 @@ interface IProps {
   distanceLunar: string;
   diameter: number;
   hazard: boolean;
-  localState: any;
-  setLocalState: any;
 }
 
-export const Asteroid: React.FC<IProps> = ({
-                                             dataFull,
-                                             id,
-                                             localState, setLocalState,
-                                             toggleDistanceLunar,
-                                             distanceKilometers,
-                                             distanceLunar,
-                                             diameter,
-                                             name,
-                                             hazard
-                                           }) => {
+interface IProps {
+  localState: ILocalSate[];
+  onHandlerAsteroid: () => void;
+  setLocalState: (item: ILocalSate[]) => void;
+}
+
+export const Asteroid: React.FC<IProps & ILocalSate> = ({
+                                                          dataFull,
+                                                          id,
+                                                          localState,
+                                                          setLocalState,
+                                                          toggleDistanceLunar,
+                                                          distanceKilometers,
+                                                          distanceLunar,
+                                                          diameter,
+                                                          name,
+                                                          hazard,
+                                                          onHandlerAsteroid
+                                                        }) => {
 
 
-  const findAsteroid = localState.find((item:any) => id === item.id)
+  const findAsteroid = localState.find((item: any) => id === item.id)
   const handlerChange = () => {
     const item = {
       dataFull,
@@ -39,7 +46,7 @@ export const Asteroid: React.FC<IProps> = ({
       hazard
     }
     if (findAsteroid !== undefined) {
-      const newLocalState = localState.filter((item:any) => id !== item.id)
+      const newLocalState = localState.filter((item: any) => id !== item.id)
       return setLocalState(newLocalState)
     }
     return setLocalState([...localState, item])
@@ -66,7 +73,9 @@ export const Asteroid: React.FC<IProps> = ({
           )}
         </div>
         <div>
-          <div className={styles.asteroidName}> {name.replace(/[{()}]/g, '')}</div>
+          <Link href={'/asteroid'}>
+            <div onClick={onHandlerAsteroid} className={styles.asteroidName}> {name.replace(/[{()}]/g, '')}</div>
+          </Link>
           <div className={styles.asteroidDiameter}>&#8960; {diameter} м</div>
         </div>
         <div className={styles.asteroidFooter}>

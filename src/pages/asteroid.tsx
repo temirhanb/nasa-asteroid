@@ -1,7 +1,23 @@
-const asteroid =()=>{
+import { stateCurrentAsteroid } from "../utility/index";
+import Link from "next/link";
 
-  return(
-    <div>asteroid</div>
+const asteroid = () => {
+
+  const removeCurrentAsteroid = () => {
+    stateCurrentAsteroid.length = 0
+  }
+  return (
+    <div>
+      <div>
+        {stateCurrentAsteroid.map(item => item.name)}
+      </div>
+      <Link href={'/'}>
+        <div onClick={removeCurrentAsteroid}>
+          назад
+        </div>
+      </Link>
+
+    </div>
   )
 }
 

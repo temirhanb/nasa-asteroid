@@ -6,6 +6,7 @@ import { RightSide } from "../component/MainPage/RightSide/index";
 import styles from '@/styles/main/main.module.css'
 import { useState } from "react";
 import { stateAsteroid } from "../utility/index";
+import { IAsteroid } from "../utility/types";
 
 export default function Home() {
 
@@ -15,8 +16,12 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div>
-        Загрузка...
+      <div className={styles.main}>
+        <LeftSide/>
+        <div>
+          Загрузка...
+        </div>
+        <RightSide localState={localState}/>
       </div>
     )
   }

@@ -1,18 +1,26 @@
 import { useState } from "react";
 import styles from '@/styles/main/mid.module.css'
 import { Asteroid } from "../Asteroid/index";
+import { stateCurrentAsteroid } from "../../../utility/index";
+import { IAsteroid } from "../../../utility/types";
 
 const options = {year: 'numeric', month: 'short', day: 'numeric'};
 
-export const MidSide = (
+interface IProps {
+  data: Array<IAsteroid>;
+  localState: Array<IAsteroid>
+  setLocalState: (item: IAsteroid) => void;
+}
+
+export const MidSide: React.FC<IProps> = (
   {
     data,
     localState,
     setLocalState
-  }:any) => {
+  }) => {
   const [toggleDistanceLunar, setToggleDistanceLunar] = useState('Lunar')
 
-  const handlerDistance = (e:any) => {
+  const handlerDistance = (e: any) => {
     if (e.target.innerText === 'в лунных орбитах') return setToggleDistanceLunar('Lunar')
     return setToggleDistanceLunar('Kilometers')
   }
@@ -50,10 +58,10 @@ export const MidSide = (
       </div>
 
       <div>
-        {data.map((item:any) => {
+        {data.map((item) => {
 
-          const distanceKilometers = Math.round(item.close_approach_data[0].miss_distance.kilometers).toLocaleString("ru-RU")
-          const distanceLunar = Math.round(item.close_approach_data[0].miss_distance.lunar).toLocaleString("ru-RU")
+          const distanceKilometers = Math.round(Number(item.close_approach_data[0].miss_distance.kilometers)).toLocaleString("ru-RU")
+          const distanceLunar = Math.round(Number(item.close_approach_data[0].miss_distance.lunar)).toLocaleString("ru-RU")
           const hazard = item.is_potentially_hazardous_asteroid
           const diameter = Math.round(item.estimated_diameter.meters.estimated_diameter_max)
           const dataFull = new Date(item.close_approach_data[0].close_approach_date_full)
@@ -62,16 +70,17 @@ export const MidSide = (
               options)
             .slice(0, -3);
 
-          const onHadlerAsteroid = () => {
-
+          const onHandlerAsteroid = () => {
+            stateCurrentAsteroid.push(item)
           }
-          console.log(item)
+
           return (
             <Asteroid
               localState={localState}
               setLocalState={setLocalState}
               key={item.id}
               id={item.id}
+              onHandlerAsteroid={onHandlerAsteroid}
               name={item.name}
               dataFull={dataFull}
               diameter={diameter}

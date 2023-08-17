@@ -2,10 +2,13 @@ import styles from '@/styles/main/right.module.css'
 import React from "react";
 import Link from "next/link";
 import { stateAsteroid } from "../../../utility/index";
+import { IAsteroid } from "../../../utility/types";
 
-export const RightSide = ({
-                            localState, setLocalState
-                          }: any) => {
+interface IProps {
+  localState: IAsteroid[];
+}
+
+export const RightSide: React.FC<IProps> = ({localState}) => {
 
   const count = localState.length;
 
