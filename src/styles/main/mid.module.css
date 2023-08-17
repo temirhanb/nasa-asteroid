@@ -25,3 +25,9 @@
   padding-bottom: 25px;
   align-items: center;
 }
+
+@media screen and (max-width: 520px) {
+  .midContainer{
+    margin-left: 20px;
+  }
+}

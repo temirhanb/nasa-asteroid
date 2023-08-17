@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { LeftSide } from "../component/MainPage/LeftSide/index";
 import { MidSide } from "../component/MainPage/MidSide/index";
 import { RightSide } from "../component/MainPage/RightSide/index";
-import styles from '@/styles/main/main.module.css'
-import { useEffect, useState } from "react";
 import { stateAsteroid } from "../utility/index";
-import axios from "axios";
+import styles from '@/styles/main/main.module.css'
+
 
 export default function Home() {
 
@@ -67,8 +68,7 @@ export default function Home() {
         />
         {isLoading ? "Загрузка..." : null}
       </div>
-
-      <RightSide localState={localState}/>
+        <RightSide localState={localState}/>
     </div>
   )
 }
