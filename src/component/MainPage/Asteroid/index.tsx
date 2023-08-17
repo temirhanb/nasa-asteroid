@@ -1,5 +1,5 @@
-import styles from '@/styles/main/asteroid.module.css'
 import Link from "next/link";
+import styles from '@/styles/main/asteroid.module.css'
 import { ILocalSate } from "../../../utility/types";
 
 interface IProps {
@@ -46,14 +46,15 @@ export const Asteroid: React.FC<IProps & ILocalSate> = ({
     <div className={styles.asteroid}>
       <div className={styles.asteroidDate}>{dataFull}</div>
       <div className={styles.asteroidDescription}>
-        <div>
-          <div>
+        <div className={styles.asteroidContainerDistance}>
+          <div className={styles.asteroidDistance}>
             {toggleDistanceLunar !== 'Lunar'
               ? distanceKilometers
               : distanceLunar} {toggleDistanceLunar === 'Lunar'
             ? 'лун'
             : 'км'}
           </div>
+          <img className={styles.asteroidDistanceImage} src="/arrow.svg" alt="arrow"/>
         </div>
         <div className={styles.asteroidImage}>
           {diameter < 100 ? (
@@ -68,16 +69,16 @@ export const Asteroid: React.FC<IProps & ILocalSate> = ({
           </Link>
           <div className={styles.asteroidDiameter}>&#8960; {diameter} м</div>
         </div>
-        <div className={styles.asteroidFooter}>
+      </div>
+      <div className={styles.asteroidFooter}>
 
-          <div
-            onClick={handlerChange}
-            className={styles.asteroidButton}
-          >
-            {findAsteroid ? 'В КОРЗИНЕ' : 'ЗАКАЗАТЬ'}
-          </div>
-          <div className={styles.asteroidHazard}>{hazard ? (<>&#9888; опасен</>) : null}</div>
+        <div
+          onClick={handlerChange}
+          className={styles.asteroidButton}
+        >
+          {findAsteroid ? 'В КОРЗИНЕ' : 'ЗАКАЗАТЬ'}
         </div>
+        <div className={styles.asteroidHazard}>{hazard ? (<>&#9888; Опасен</>) : null}</div>
       </div>
     </div>
   )

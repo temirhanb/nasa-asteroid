@@ -14,7 +14,7 @@ const Cart = () => {
         <div className={styles.title}>Корзина пуста &#9785;</div>
         <LeftSide/>
         <Link href={'/'}>
-          <div className={styles.button}>
+          <div className={styles.buttonTransparent}>
             <span>Назад</span>
           </div>
         </Link>
@@ -37,11 +37,19 @@ const Cart = () => {
           </div>
         )
       })}
-      <Link href={'/'}>
-        <div className={styles.button} onClick={handlerClick}>
-          <span>Уничтожить</span>
-        </div>
-      </Link>
+      <div className={styles.buttonContainer}>
+        <Link href={'/'}>
+          <div className={styles.button} onClick={handlerClick}>
+            <span>Уничтожить</span>
+          </div>
+        </Link>
+        <Link href={'/'}>
+          <div className={styles.buttonTransparent}>
+            <span>Назад</span>
+          </div>
+        </Link>
+      </div>
+
     </div>
   )
 }

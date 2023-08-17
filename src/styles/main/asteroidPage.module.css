@@ -5,27 +5,9 @@
   flex-direction: column;
 }
 
-.title {
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 32px;
+.asteroidContainer{
   margin-bottom: 20px;
 }
-
-.asteroid {
-  padding-bottom: 10px;
-}
-
-.button {
-  background: #F86600;
-  width: 140px;
-  height: 50px;
-  border-radius: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .buttonTransparent {
   border: 2px solid #F86600;
   background: rgba(255, 70, 0, 0.21);
@@ -36,10 +18,4 @@
   justify-content: center;
   align-items: center;
   margin-left: 20px;
-}
-
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 }
