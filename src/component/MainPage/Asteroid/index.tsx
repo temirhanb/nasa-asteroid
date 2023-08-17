@@ -1,16 +1,6 @@
 import styles from '@/styles/main/asteroid.module.css'
 import Link from "next/link";
-
-interface ILocalSate {
-  dataFull: string;
-  id: string;
-  toggleDistanceLunar: string;
-  name: string;
-  distanceKilometers: string;
-  distanceLunar: string;
-  diameter: number;
-  hazard: boolean;
-}
+import { ILocalSate } from "../../../utility/types";
 
 interface IProps {
   localState: ILocalSate[];

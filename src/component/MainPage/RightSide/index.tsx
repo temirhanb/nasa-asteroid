@@ -2,10 +2,10 @@ import styles from '@/styles/main/right.module.css'
 import React from "react";
 import Link from "next/link";
 import { stateAsteroid } from "../../../utility/index";
-import { IAsteroid } from "../../../utility/types";
+import { ILocalSate } from "../../../utility/types";
 
 interface IProps {
-  localState: IAsteroid[];
+  localState: ILocalSate[];
 }
 
 export const RightSide: React.FC<IProps> = ({localState}) => {

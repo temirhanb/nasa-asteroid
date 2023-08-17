@@ -34,7 +34,7 @@ export default function Home() {
         localState={localState} setLocalState={setLocalState}
         data={asteroidData}
       />
-      <RightSide localState={localState} setLocalState={setLocalState}/>
+      <RightSide localState={localState} />
     </div>
   )
 }

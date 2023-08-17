@@ -2,14 +2,14 @@ import { useState } from "react";
 import styles from '@/styles/main/mid.module.css'
 import { Asteroid } from "../Asteroid/index";
 import { stateCurrentAsteroid } from "../../../utility/index";
-import { IAsteroid } from "../../../utility/types";
+import { IAsteroid, ILocalSate } from "../../../utility/types";
 
 const options = {year: 'numeric', month: 'short', day: 'numeric'};
 
 interface IProps {
   data: Array<IAsteroid>;
-  localState: Array<IAsteroid>
-  setLocalState: (item: IAsteroid) => void;
+  localState: Array<ILocalSate>
+  setLocalState: (item: ILocalSate[]) => void;
 }
 
 export const MidSide: React.FC<IProps> = (

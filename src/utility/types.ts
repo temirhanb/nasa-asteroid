@@ -45,3 +45,14 @@ export interface IAsteroid {
     self: string;
   }
 }
+
+export interface ILocalSate {
+  dataFull: string;
+  id: string;
+  toggleDistanceLunar: string;
+  name: string;
+  distanceKilometers: string;
+  distanceLunar: string;
+  diameter: number;
+  hazard: boolean;
+}
