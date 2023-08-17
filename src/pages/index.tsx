@@ -5,6 +5,7 @@ import { MidSide } from "../component/MainPage/MidSide/index";
 import { RightSide } from "../component/MainPage/RightSide/index";
 import { stateAsteroid } from "../utility/index";
 import styles from '@/styles/main/main.module.css'
+import { IAsteroid } from "../utility/types";
 
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [localState, setLocalState] = useState(stateAsteroid)
 
-  const scrollHandler = (e) => {
+  const scrollHandler = (e:any) => {
     if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
       setIsLoading(true)
     }
@@ -23,10 +24,10 @@ export default function Home() {
 
   useEffect(() => {
     if (isLoading) {
-      console.log(prevDate)
       axios.get(prevDate)
         .then(res => {
-          setCurrentData([...currentData, ...Object.values(res.data.near_earth_objects)[0]])
+          const newArray:any = Object.values(res.data.near_earth_objects)[0]
+          setCurrentData([...currentData, ...newArray])
           setPrevDate(res.data.links.prev)
         })
         .finally(() => setIsLoading(false))
