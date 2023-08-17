@@ -1,20 +1,50 @@
-import { useQuery } from "react-query";
-import { fetchNasa } from "../api/index";
 import { LeftSide } from "../component/MainPage/LeftSide/index";
 import { MidSide } from "../component/MainPage/MidSide/index";
 import { RightSide } from "../component/MainPage/RightSide/index";
 import styles from '@/styles/main/main.module.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { stateAsteroid } from "../utility/index";
-import { IAsteroid } from "../utility/types";
+import axios from "axios";
 
 export default function Home() {
 
-  const currentDate = new Date().toJSON().slice(0, 10);
-  const {data, isLoading, isError} = useQuery(['data', currentDate], () => fetchNasa(currentDate))
+  const currentDateFormat = new Date().toJSON().slice(0, 10);
+  const [prevDate, setPrevDate] = useState(currentDateFormat)
+  const [currentData, setCurrentData]: any = useState([])
+  const [isLoading, setIsLoading] = useState(false);
   const [localState, setLocalState] = useState(stateAsteroid)
 
-  if (isLoading) {
+  const scrollHandler = (e) => {
+    if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
+      setIsLoading(true)
+    }
+  }
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log(prevDate)
+      axios.get(prevDate)
+        .then(res => {
+          setCurrentData([...currentData, ...Object.values(res.data.near_earth_objects)[0]])
+          setPrevDate(res.data.links.prev)
+        })
+        .finally(() => setIsLoading(false))
+    }
+  }, [isLoading])
+
+  useEffect(() => {
+    axios.get(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${currentDateFormat}&end_date=${currentDateFormat}&api_key=Z9bvPJkx9yseLf2fI1LgCDb4D969odP3IwrQMApj`)
+      .then(res => {
+        setPrevDate(res.data.links.prev)
+        setCurrentData(Object.values(res.data.near_earth_objects)[0])
+      })
+    document.addEventListener('scroll', scrollHandler)
+    return () => {
+      document.removeEventListener('scroll', scrollHandler)
+    }
+  }, [])
+
+  if (currentData.length === 0) {
     return (
       <div className={styles.main}>
         <LeftSide/>
@@ -26,15 +56,19 @@ export default function Home() {
     )
   }
 
-  const asteroidData = data.near_earth_objects[currentDate]
   return (
     <div className={styles.main}>
       <LeftSide/>
-      <MidSide
-        localState={localState} setLocalState={setLocalState}
-        data={asteroidData}
-      />
-      <RightSide localState={localState} />
+      <div>
+        <MidSide
+          localState={localState}
+          setLocalState={setLocalState}
+          data={currentData}
+        />
+        {isLoading ? "Загрузка..." : null}
+      </div>
+
+      <RightSide localState={localState}/>
     </div>
   )
 }
