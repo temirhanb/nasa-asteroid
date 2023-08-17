@@ -76,7 +76,7 @@ export const Asteroid: React.FC<IProps & ILocalSate> = ({
           onClick={handlerChange}
           className={styles.asteroidButton}
         >
-          {findAsteroid ? 'В КОРЗИНЕ' : 'ЗАКАЗАТЬ'}
+          {findAsteroid ? <span style={{color: '#fff'}}>В КОРЗИНЕ</span> : 'ЗАКАЗАТЬ'}
         </div>
         <div className={styles.asteroidHazard}>{hazard ? (<>&#9888; Опасен</>) : null}</div>
       </div>
